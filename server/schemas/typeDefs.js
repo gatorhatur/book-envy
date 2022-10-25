@@ -25,7 +25,6 @@ const typeDefs = gql`
 
     type Query {
         me: User
-
     }
 
     type Mutation {
@@ -35,3 +34,5 @@ const typeDefs = gql`
         removeBook(bookId: ID!): User
     }
 `
+
+module.exports = typeDefs;
