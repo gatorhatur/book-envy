@@ -9,9 +9,10 @@ import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
   
-  const { loading, data: userData } = useQuery(GET_ME);
+  const { loading, data: userData} = useQuery(GET_ME);
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);
   
+
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
     
@@ -27,9 +28,9 @@ const SavedBooks = () => {
   };
 
   // if data isn't here yet, say so
-  if (loading) {
-    return <h2>LOADING...</h2>;
-  }
+  // if (loading) {
+  //   return <h2>LOADING...</h2>;
+  // }
 
   return (
     <>
@@ -39,12 +40,15 @@ const SavedBooks = () => {
         </Container>
       </Jumbotron>
       <Container>
-        <h2>
-          {userData.savedBooks.length
+        {loading
+          ? <h2>LOADING...</h2>
+          : <>
+            <h2>
+            {userData.savedBooks.length
             ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
             : 'You have no saved books!'}
-        </h2>
-        <CardColumns>
+            </h2>
+            <CardColumns>
           {userData.savedBooks.map((book) => {
             return (
               <Card key={book.bookId} border='dark'>
@@ -61,6 +65,10 @@ const SavedBooks = () => {
             );
           })}
         </CardColumns>
+          </>
+        }
+        
+        
       </Container>
     </>
   );
